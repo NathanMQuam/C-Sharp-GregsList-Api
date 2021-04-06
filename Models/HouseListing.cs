@@ -4,10 +4,10 @@ namespace gregslist_api.Models
 {
    public class HouseListing
    {
-      public HouseListing(int bed, int bath, int price, string address, string description)
+      public HouseListing(int bedrooms, int bathrooms, int price, string address, string description)
       {
-         Bedrooms = bed;
-         Bathrooms = bath;
+         Bedrooms = bedrooms;
+         Bathrooms = bathrooms;
          Price = price;
          Address = address;
          Description = description;

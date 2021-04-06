@@ -7,14 +7,14 @@ namespace gregslist_api.Controllers
 {
    [ApiController]
    [Route("api/[controller]")]
-   public class CarsController : ControllerBase
+   public class HousesController : ControllerBase
    {
       [HttpGet]
-      public ActionResult<IEnumerable<CarListing>> Get()
+      public ActionResult<IEnumerable<HouseListing>> Get()
       {
          try
          {
-            return Ok(FakeDB.Cars);
+            return Ok(FakeDB.Houses);
          }
          catch (System.Exception err)
          {
@@ -24,12 +24,12 @@ namespace gregslist_api.Controllers
 
       //FROMBODY uses a parameterless class constructor to map data over from the request to the model.
       [HttpPost]
-      public ActionResult<CarListing> Create([FromBody] CarListing newCar)
+      public ActionResult<HouseListing> Create([FromBody] HouseListing newHouse)
       {
          try
          {
-            FakeDB.Cars.Add(newCar);
-            return Ok(newCar);
+            FakeDB.Houses.Add(newHouse);
+            return Ok(newHouse);
          }
          catch (System.Exception err)
          {
@@ -37,22 +37,22 @@ namespace gregslist_api.Controllers
          }
       }
 
-      [HttpGet("{carId}")]
-      public ActionResult<CarListing> GetCar(string carId)
+      [HttpGet("{houseId}")]
+      public ActionResult<HouseListing> GetHouse(string houseId)
       {
          try
          {
-            CarListing carFound = FakeDB.Cars.Find(c => c.Id == carId);
-            if (carFound == null)
+            HouseListing houseFound = FakeDB.Houses.Find(c => c.Id == houseId);
+            if (houseFound == null)
             {
-               throw new System.Exception("Car does not exist");
+               throw new System.Exception("House does not exist");
             }
-            return Ok(carFound);
+            return Ok(houseFound);
             //NOTE can use exists to see if a list contains something, but it returns a bool so be cautious when returning.
-            // bool carFound = FakeDB.Cars.Exists(c => c.Id == carId);
-            // if (carFound == false)
+            // bool houseFound = FakeDB.Houses.Exists(c => c.Id == houseId);
+            // if (houseFound == false)
             // {
-            //   throw new System.Exception("Car does not exist");
+            //   throw new System.Exception("House does not exist");
             // }
          }
          catch (System.Exception err)
@@ -62,18 +62,18 @@ namespace gregslist_api.Controllers
       }
 
       [HttpDelete("{id}")]
-      public ActionResult<string> DeleteCar(string id)
+      public ActionResult<string> DeleteHouse(string id)
       {
          try
          {
-            CarListing carToRemove = FakeDB.Cars.Find(c => c.Id == id);
-            if (FakeDB.Cars.Remove(carToRemove))
+            HouseListing houseToRemove = FakeDB.Houses.Find(c => c.Id == id);
+            if (FakeDB.Houses.Remove(houseToRemove))
             {
-               return Ok("Car Delorted");
+               return Ok("House Delorted");
             }
             else
             {
-               throw new System.Exception("This car does not exist.");
+               throw new System.Exception("This house does not exist.");
             }
          }
          catch (System.Exception err)

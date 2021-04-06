@@ -7,14 +7,14 @@ namespace gregslist_api.Controllers
 {
    [ApiController]
    [Route("api/[controller]")]
-   public class CarsController : ControllerBase
+   public class JobsController : ControllerBase
    {
       [HttpGet]
-      public ActionResult<IEnumerable<CarListing>> Get()
+      public ActionResult<IEnumerable<JobListing>> Get()
       {
          try
          {
-            return Ok(FakeDB.Cars);
+            return Ok(FakeDB.Jobs);
          }
          catch (System.Exception err)
          {
@@ -24,12 +24,12 @@ namespace gregslist_api.Controllers
 
       //FROMBODY uses a parameterless class constructor to map data over from the request to the model.
       [HttpPost]
-      public ActionResult<CarListing> Create([FromBody] CarListing newCar)
+      public ActionResult<JobListing> Create([FromBody] JobListing newJob)
       {
          try
          {
-            FakeDB.Cars.Add(newCar);
-            return Ok(newCar);
+            FakeDB.Jobs.Add(newJob);
+            return Ok(newJob);
          }
          catch (System.Exception err)
          {
@@ -37,22 +37,22 @@ namespace gregslist_api.Controllers
          }
       }
 
-      [HttpGet("{carId}")]
-      public ActionResult<CarListing> GetCar(string carId)
+      [HttpGet("{jobId}")]
+      public ActionResult<JobListing> GetJob(string jobId)
       {
          try
          {
-            CarListing carFound = FakeDB.Cars.Find(c => c.Id == carId);
-            if (carFound == null)
+            JobListing jobFound = FakeDB.Jobs.Find(c => c.Id == jobId);
+            if (jobFound == null)
             {
-               throw new System.Exception("Car does not exist");
+               throw new System.Exception("Job does not exist");
             }
-            return Ok(carFound);
+            return Ok(jobFound);
             //NOTE can use exists to see if a list contains something, but it returns a bool so be cautious when returning.
-            // bool carFound = FakeDB.Cars.Exists(c => c.Id == carId);
-            // if (carFound == false)
+            // bool jobFound = FakeDB.Jobs.Exists(c => c.Id == jobId);
+            // if (jobFound == false)
             // {
-            //   throw new System.Exception("Car does not exist");
+            //   throw new System.Exception("Job does not exist");
             // }
          }
          catch (System.Exception err)
@@ -62,18 +62,18 @@ namespace gregslist_api.Controllers
       }
 
       [HttpDelete("{id}")]
-      public ActionResult<string> DeleteCar(string id)
+      public ActionResult<string> DeleteJob(string id)
       {
          try
          {
-            CarListing carToRemove = FakeDB.Cars.Find(c => c.Id == id);
-            if (FakeDB.Cars.Remove(carToRemove))
+            JobListing jobToRemove = FakeDB.Jobs.Find(c => c.Id == id);
+            if (FakeDB.Jobs.Remove(jobToRemove))
             {
-               return Ok("Car Delorted");
+               return Ok("Job Delorted");
             }
             else
             {
-               throw new System.Exception("This car does not exist.");
+               throw new System.Exception("This job does not exist.");
             }
          }
          catch (System.Exception err)
@@ -81,5 +81,6 @@ namespace gregslist_api.Controllers
             return BadRequest(err.Message);
          }
       }
+
    }
 }

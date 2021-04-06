@@ -8,5 +8,7 @@ namespace gregslist_api.db
 
       //NOTE make sure you instantiate your list before you try to access it.
       public static List<CarListing> Cars { get; set; } = new List<CarListing>();
+      public static List<HouseListing> Houses { get; set; } = new List<HouseListing>();
+      public static List<JobListing> Jobs { get; set; } = new List<JobListing>();
    }
 }
